@@ -1,3 +1,4 @@
+
 namespace cinemaApi.Models
 {
     public class Cinema : BaseModel

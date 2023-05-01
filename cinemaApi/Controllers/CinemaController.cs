@@ -17,75 +17,40 @@ namespace cinemaApi.Controllers
         }
 
         [HttpGet("{id:int}/showtimes")]
-        public async Task<ActionResult<IEnumerable<Tuple<int, int>>>> GetShowTimes([FromRoute] int id, int open, int close, int length)
+        //another return type option is Task<ActionResult<IEnumerable<Tuple<int, int>>>>, then response will be an array of object of hour and minute
+        public async Task<ActionResult<IEnumerable<string>>> GetShowTimes([FromRoute] int id, int open, int close, int length)
         {
-            var cinema = await _context.Cinemas.FindAsync(id);
 
+            var cinema = await _context.Cinemas.FindAsync(id);
             if (cinema == null) throw ServiceException.NotFound();
 
-            //if the closing hour is after 24, then it's added by 24 to keep the while loop runnning
-            //For example closing hour is for example 3am and opening hour is 16, the while loop will keep running as long as opening hour < closing hour
-            int closingHour = close;
-            if (close < 12) closingHour += 24;
+            var openingHourInMinutes = open * 60;
+            //if closing hour is after 24, then add it by 24 to convert into minutes
+            var closingHour = close;
+            if (close <= 6) closingHour += 24;
+            var closingTimeInMinutes = closingHour * 60;
 
-            int startHour = open;
-            int startMinute = 0;
+            int movieStartHour = 0;
+            int movieStartMinute = 0;
+            var showtimes = new List<string>();
 
-            //hourCount is used to compare with closingHour starting from openning hour until it's ,
-            //each hour passed will be increased by one
-            int hourCount = open;
-
-            var showtimes = new List<Tuple<int, int>>();
-            showtimes.Add(new Tuple<int, int>(startHour, startMinute));
-
-            while (hourCount < closingHour)
+            for (var i = openingHourInMinutes; i < closingTimeInMinutes; i += (length + 15))
             {
+                int movieEndingTimeInMinute = 0;
+                int remainder = i % 60;
+                movieStartHour = (i - remainder) / 60;
+                if (movieStartHour > 24) movieStartHour -= 24;
 
-                //total number of minutes to calculate the next starting time of a movie
-                int minutes = startMinute + length + 15;
-                if (minutes > 60)
-                {
-                    int remainder = minutes % 60;
-                    startMinute = remainder;
-                    if (remainder == 0)
-                    {
-                        startHour += minutes / 60;
-                        hourCount += minutes / 60;
-                    }
-                    else
-                    {
-                        startHour += (minutes - remainder) / 60;
-                        hourCount += (minutes - remainder) / 60;
+                movieStartMinute = remainder;
+                var result = $"({movieStartHour.ToString()}, {movieStartMinute.ToString()})";
 
-                    }
-                    if (startHour > 24) startHour -= 24;
+                //if the movie ends after the cinema is closed then break to stop Add() to add new starting time
+                movieEndingTimeInMinute = i + length;
+                if (movieEndingTimeInMinute >= closingTimeInMinutes) break;
 
-                    //Calculate movie ending time
-                    var movieEndingHour = CalculateMovieEndingTime(hourCount, startMinute, length);
-                    if (movieEndingHour >= closingHour) break;
-                    showtimes.Add(new Tuple<int, int>(startHour, startMinute));
-                }
-                else
-                {
-                    startMinute = minutes;
-                    showtimes.Add(new Tuple<int, int>(startHour, startMinute));
-                }
+                showtimes.Add(result);
             }
             return showtimes;
-        }
-        private int CalculateMovieEndingTime(int hourCount, int startMinute, int length)
-        {
-            int movieDurationAndStartMinute = length + startMinute;
-
-            int endingRemainder = movieDurationAndStartMinute % 60;
-            if (endingRemainder == 0)
-            {
-                return hourCount + (movieDurationAndStartMinute / 60);
-            }
-            else
-            {
-                return hourCount + ((movieDurationAndStartMinute - endingRemainder) / 60);
-            }
         }
     }
 }
