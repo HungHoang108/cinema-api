@@ -30,7 +30,16 @@ There's also a 15-minute window between a session's end and the beginning of the
 ## Technology
 * Backend: C#, .NET Core API, Entity Framework Core, PostgreSQL, Azure, xUnit testing. 
 
-## How to run the app
+## Run the app with Docker
+Run below commands on terminal:
+- docker pull hunghoang108/cinemaapi
+- docker run -p 5000:80 cinemaapi:1.0.0
+
+After the docker is run. you can access to the swagger ui with http://localhost:5000/swagger/index.html
+
+Note: There will be some error executing crud operations in case of using Docker
+
+## Run the app with Github
 - Step 1: Fork and clone the project to your local machine
 - Step 2: Cd to cinemaApi repository and install all nescessary nuget packages
 - Step 3: In the appsettings.Development.json file, add your local database address to DefaultConnection
