@@ -32,7 +32,7 @@ The array is sorted from earliest to latest and a 15-minute break is required be
 * Backend: C#, .NET Core API, Entity Framework Core, PostgreSQL, Azure, xUnit testing. 
 
 ## Run the app with Docker
-Ensure that you have Docker deskop installed. Then run below commands on terminal:
+Ensure that you have Docker Desktop installed. Then run below commands on the terminal:
 - docker pull hunghoang108/cinemaapi
 - docker run -p 5000:80 cinemaapi:1.0.0
 
