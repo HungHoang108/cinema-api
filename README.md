@@ -47,7 +47,6 @@ ApiCinema
 ├─ .gitignore
 ├─ ApiCinema.sln
 ├─ cinemaApi
-│  ├─ .gitignore
 │  ├─ appsettings.Development.json
 │  ├─ cinemaApi.csproj
 │  ├─ Controllers
