@@ -16,22 +16,23 @@
 - PUT /cinemas/{id} - to update a specific cinema by ID
 - DELETE /cinemas/{id} - to delete a specific cinema by ID
 
-### Showtimes explanation
+### About Showtimes
 The function receives four parameters, all of them being integers:
 - Id - cinema Id
 - open - Hour at which the cinema opens.
 - close - Hour at which the cinema closes.
 - length - Length of the movie, in minutes.
 
-This endpoint return an array of tuples, each tuple contains (hour, minute) . For example, (19, 30) means 19:30, and (2, 0) means 02:00. The last session in the array cannot end after the cinema closes. Also, the times in the array must be sorted from earliest to latest.
-There's also a 15-minute window between a session's end and the beginning of the following one, in order to give enough time for users to take a seat.
+The endpoint returns an array of tuples where each tuple includes hour and minute values. For instance, (19, 30) represents 19:30. 
+The last session in the array must not end later than the cinema's closing time. 
+The array is sorted from earliest to latest and a 15-minute break is required between the end of one session and the start of the next one to ensure sufficient time for the audience to settle in.
 
 
 ## Technology
 * Backend: C#, .NET Core API, Entity Framework Core, PostgreSQL, Azure, xUnit testing. 
 
 ## Run the app with Docker
-Run below commands on terminal:
+Ensure that you have Docker deskop installed. Then run below commands on terminal:
 - docker pull hunghoang108/cinemaapi
 - docker run -p 5000:80 cinemaapi:1.0.0
 
