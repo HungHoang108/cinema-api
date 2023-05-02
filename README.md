@@ -1,4 +1,4 @@
-# LuxeLane Fullstack
+# CinemaApi
 
 
 ![.NET Core](https://img.shields.io/badge/.NET%20Core-v.7-purple)
