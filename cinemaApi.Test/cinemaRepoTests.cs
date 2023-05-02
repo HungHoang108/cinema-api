@@ -6,7 +6,7 @@ using cinemaApi.Repositories.BaseRepo;
 
 namespace cinemaApi.Test;
 
-public class cinemaRepoTests
+public class CinemaRepoTests
 {
     public interface ICinemaRepo
     {
@@ -25,10 +25,10 @@ public class cinemaRepoTests
         var mockRepo = new Mock<ICinemaRepo>();
         mockRepo.Setup(repo => repo.CreateAsync(request))
             .ReturnsAsync(new Cinema() { Id = 1, Name = "c1", OpeningHour = 13, ClosingHour = 16, ShowDuration = 60 });
-        var CinemaRepo = mockRepo.Object;
+        var cinemaRepo = mockRepo.Object;
 
         //Act
-        var result = await CinemaRepo.CreateAsync(request);
+        var result = await cinemaRepo.CreateAsync(request);
 
         //Assert
         result.Should().NotBeNull();
@@ -43,10 +43,10 @@ public class cinemaRepoTests
         var mockRepo = new Mock<ICinemaRepo>();
         mockRepo.Setup(repo => repo.GetAsync(1))
             .ReturnsAsync(new Cinema() { Id = 1, Name = "c1", OpeningHour = 13, ClosingHour = 16, ShowDuration = 60 });
-        var CinemaRepo = mockRepo.Object;
+        var cinemaRepo = mockRepo.Object;
 
         //Act
-        var result = await CinemaRepo.GetAsync(1);
+        var result = await cinemaRepo.GetAsync(1);
 
         //Assert
         result.Should().NotBeNull();

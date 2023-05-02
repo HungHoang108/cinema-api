@@ -17,7 +17,6 @@ builder.Services
         // Fix the JSON cycle issue
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
-
 builder.Services.AddDbContext<DataContext>();
 // builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

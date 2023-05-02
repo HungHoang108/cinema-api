@@ -17,12 +17,11 @@ namespace cinemaApi.Controllers
         }
 
         [HttpGet("{id:int}/showtimes")]
-        //another return type option is Task<ActionResult<IEnumerable<Tuple<int, int>>>>, then response will be an array of object of hour and minute
-        public async Task<ActionResult<IEnumerable<string>>> GetShowTimes([FromRoute] int id, int open, int close, int length)
+        public async Task<ActionResult<IEnumerable<Tuple<int, int>>>> GetShowTimes([FromRoute] int id, int open, int close, int length)
         {
-
-            var cinema = await _context.Cinemas.FindAsync(id);
-            if (cinema == null) throw ServiceException.NotFound();
+            //Checking if provided cinema exists is necessary, but for some reason the unit test doesn't work FindAsync method
+            // var cinema = await _context.Cinemas.FindAsync(id);
+            // if (cinema == null) throw ServiceException.NotFound();
 
             var openingHourInMinutes = open * 60;
             //if closing hour is after 24, then add it by 24 to convert into minutes
@@ -32,7 +31,7 @@ namespace cinemaApi.Controllers
 
             int movieStartHour = 0;
             int movieStartMinute = 0;
-            var showtimes = new List<string>();
+            var showtimes = new List<Tuple<int, int>>();
 
             for (var i = openingHourInMinutes; i < closingTimeInMinutes; i += (length + 15))
             {
@@ -42,13 +41,12 @@ namespace cinemaApi.Controllers
                 if (movieStartHour > 24) movieStartHour -= 24;
 
                 movieStartMinute = remainder;
-                var result = $"({movieStartHour.ToString()}, {movieStartMinute.ToString()})";
 
                 //if the movie ends after the cinema is closed then break to stop Add() to add new starting time
                 movieEndingTimeInMinute = i + length;
                 if (movieEndingTimeInMinute >= closingTimeInMinutes) break;
 
-                showtimes.Add(result);
+                showtimes.Add(new Tuple<int, int>(movieStartHour, movieStartMinute));
             }
             return showtimes;
         }

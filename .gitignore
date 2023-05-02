@@ -2,6 +2,7 @@
 
 # User-specific files
 cinemaApi/appsettings.json
+cinemaApi/appsettings.Development.json
 cinemaApi/obj
 cinemaApi/bin
 
