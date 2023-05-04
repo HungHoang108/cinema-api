@@ -14,6 +14,15 @@ namespace cinemaApi.Database
                 .UseNpgsql(connString)
                 .UseSnakeCaseNamingConvention();
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Cinema>(entity =>
+            {
+                entity.HasIndex(c => c.Name).IsUnique();
+            });
+
+        }
         public DbSet<Cinema> Cinemas { get; set; } = null!;
     }
 }
