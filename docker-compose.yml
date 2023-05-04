@@ -1,0 +1,12 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+version: '3.4'
+
+services:
+  cinemaapi:
+    image: cinemaapi
+    build:
+      context: .
+      dockerfile: cinemaApi/Dockerfile
+    ports:
+      - 5034:5034

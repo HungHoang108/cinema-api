@@ -29,7 +29,7 @@ The array is sorted from earliest to latest and a 15-minute break is required be
 
 
 ## Technology
-* Backend: C#, .NET Core API, Entity Framework Core, PostgreSQL, Azure, xUnit testing. 
+* Backend: C#, .NET Core API, Entity Framework Core, PostgreSQL, Docker, xUnit testing. 
 
 ## Run the app with Docker
 Ensure that you have Docker Desktop installed. Then run below commands on the terminal:
@@ -38,9 +38,9 @@ Ensure that you have Docker Desktop installed. Then run below commands on the te
 
 After the docker is run. you can access to the swagger ui with http://localhost:5000/swagger/index.html
 
-Note: There will be some error executing crud operations in case of using Docker
+Note: There will be some errors executing crud operations because the database hasn't been containerized
 
-## Run the app with Github
+## Run the app with Github codes
 - Step 1: Fork and clone the project to your local machine
 - Step 2: Cd to cinemaApi repository and install all nescessary nuget packages
 - Step 3: In the appsettings.Development.json file, add your local database address to DefaultConnection
