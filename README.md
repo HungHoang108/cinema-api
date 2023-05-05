@@ -6,7 +6,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v.14-drakblue)
 
 ## About
-* A simple CinemaAPI using C# and .NET core API. The API allows users to create, read, update, and delete records(cinemas) in a database
+* A simple CinemaAPI using C# and .NET core API. The API allows users to create, read, update, and delete records of cinema in database
 
 ### Endpoints:
 - GET /cinemas - to get a list of all cinemas
@@ -17,7 +17,7 @@
 - DELETE /cinemas/{id} - to delete a specific cinema by ID
 
 ### About Showtimes
-The function receives four parameters, all of them being integers:
+The function receives four parameters:
 - Id - cinema Id
 - open - Hour at which the cinema opens.
 - close - Hour at which the cinema closes.
