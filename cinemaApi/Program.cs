@@ -11,12 +11,12 @@ using static cinemaApi.DTOs.CinemaDto;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddControllers()
-    .AddJsonOptions(options =>
-    {
-        // Fix the JSON cycle issue
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    });
+    .AddControllers();
+// .AddJsonOptions(options =>
+// {
+//     // Fix the JSON cycle issue
+//     // options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+// });
 builder.Services.AddDbContext<DataContext>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
